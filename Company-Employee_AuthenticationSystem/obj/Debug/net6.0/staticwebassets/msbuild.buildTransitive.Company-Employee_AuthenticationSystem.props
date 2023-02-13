@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Company-Employee_AuthenticationSystem.props" />
+</Project>
