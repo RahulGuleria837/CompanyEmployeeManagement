@@ -1,4 +1,5 @@
 using Company_Employee_AuthenticationSystem;
+using Company_Employee_AuthenticationSystem.DTOMapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 //builder.Services.AddScoped<RoleManager<ApplicationRole>, ApplicationRoleManager>();
 //builder.Services.AddScoped<ApplicationRoleStore>();
 
+//DTO
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -70,8 +73,35 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+IServiceScopeFactory serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (IServiceScope scope = serviceScopeFactory.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    if (!await roleManager.RoleExistsAsync(StandardDictionary.Role_Admin))
+    {
+        var role = new IdentityRole();
+        role.Name = StandardDictionary.Role_Admin;
+        await roleManager.CreateAsync(role);
+    }
+    if (!await roleManager.RoleExistsAsync(StandardDictionary.Role_Employee))
+    {
+        var role = new IdentityRole();
+        role.Name = StandardDictionary.Role_Employee;
+        await roleManager.CreateAsync(role);
+    }
+    if (!await roleManager.RoleExistsAsync(StandardDictionary.Role_Company))
+    {
+        var role = new IdentityRole();
+        role.Name = StandardDictionary.Role_Company;
+        await roleManager.CreateAsync(role);
+    }
+}
 app.UseHttpsRedirection();
+
+
+
+
 app.UseAuthentication();
 
 app.UseAuthorization();
