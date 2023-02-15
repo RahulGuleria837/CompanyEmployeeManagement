@@ -1,5 +1,6 @@
 ﻿using Company_Employee_AuthenticationSystem.Services.IServiceContract;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,11 +15,12 @@ namespace Company_Employee_AuthenticationSystem.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly AppSettings _appSettings;
 
-        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, AppSettings appSettings)
+
+        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IOptions<AppSettings> appSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _appSettings = appSettings;
+            _appSettings = appSettings.Value;
         }
         #region Function to add Refresh Token
         public async Task<ApplicationUser> AddRefreshToken(ApplicationUser applicationUser)
@@ -33,7 +35,7 @@ namespace Company_Employee_AuthenticationSystem.Services
         #region In this Function we authenicate the UserName and password and Generate JWT Token
         public async Task<ApplicationUser> AuthenicateUser(string userName, string password)
         {     // check User Name and Role and Password
-            var checkUser = await _userManager.FindByEmailAsync(userName);
+            var checkUser = await _userManager.FindByNameAsync(userName);
             var checkUserRole = await _userManager.GetRolesAsync(checkUser);
             checkUser.Role = checkUserRole.FirstOrDefault();
             var userVerification = await _signInManager.CheckPasswordSignInAsync(checkUser, password,false);

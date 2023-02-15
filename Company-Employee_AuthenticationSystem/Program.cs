@@ -1,5 +1,7 @@
 using Company_Employee_AuthenticationSystem;
 using Company_Employee_AuthenticationSystem.DTOMapping;
+using Company_Employee_AuthenticationSystem.Services;
+using Company_Employee_AuthenticationSystem.Services.IServiceContract;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +12,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);  
 
 // Add services to the container.
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<ApplicationDbContext>(options =>
@@ -26,6 +28,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 //builder.Services.AddScoped<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
 //builder.Services.AddScoped<RoleManager<ApplicationRole>, ApplicationRoleManager>();
 //builder.Services.AddScoped<ApplicationRoleStore>();
+
+builder.Services.AddScoped<IJWTService, JWTService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 //DTO
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -97,12 +102,8 @@ using (IServiceScope scope = serviceScopeFactory.CreateScope())
         await roleManager.CreateAsync(role);
     }
 }
+
 app.UseHttpsRedirection();
-
-
-
-
-app.UseAuthentication();
 
 app.UseAuthorization();
 

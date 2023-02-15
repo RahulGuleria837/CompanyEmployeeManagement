@@ -39,10 +39,12 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             }
             var authenticataeUser = await _userService.AuthenicateUser(login.UserName, login.Password);
             if (authenticataeUser == null) { return Unauthorized(); }
-            return Ok(new { AccessToken = authenticataeUser.Token, RefreshToken = authenticataeUser.RefreshToken });
+            return Ok(new { AccessToken = authenticataeUser.Token, authenticataeUser.RefreshToken });
         }
-            [HttpPost]
+
             [Route("Register")]
+            [HttpPost]
+            
 
             public async Task<IActionResult> Register([FromBody]RegisterDTO registerDetail)
             {
