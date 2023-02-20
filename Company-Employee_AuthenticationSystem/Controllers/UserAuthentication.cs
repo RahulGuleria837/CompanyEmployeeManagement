@@ -33,10 +33,10 @@ namespace Company_Employee_AuthenticationSystem.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel login)
         {
-            if (await _userService.IsUnique(login.UserName))
-            {
-                return Ok(new { Message = "Register first then login" });
-            }
+                //we will check there if the User is Unique or alerady registerd
+                if (await _userService.IsUnique(login.UserName))
+                    return Ok(new { Message = "Register first then login" });
+
             var authenticataeUser = await _userService.AuthenicateUser(login.UserName, login.Password);
             if (authenticataeUser == null) { return Unauthorized(); }
             return Ok(new { AccessToken = authenticataeUser.Token, authenticataeUser.RefreshToken });
@@ -51,12 +51,12 @@ namespace Company_Employee_AuthenticationSystem.Controllers
                 var applicationuserDetail = _mapper.Map<ApplicationUser>(registerDetail);
                 applicationuserDetail.PasswordHash = registerDetail.Password;
                 if(applicationuserDetail == null || !ModelState.IsValid) return BadRequest();
-                if( await _userService.IsUnique(registerDetail.UserName))
+                if(! await _userService.IsUnique(registerDetail.UserName))
                 return Ok(new { Message = "Already Register Go to Login" });
                 var registerUser = await _userService.RegisterUser(applicationuserDetail);
             if (!registerUser) return StatusCode(StatusCodes.Status500InternalServerError);
             return Ok(new { Message = "Register successfully!!!" });
-
+               
 
 
             }

@@ -1,4 +1,4 @@
-import { Injectable, HttpClient } from '@angular/core';
+import { Injectable, } from '@angular/core';
 import{Observable}from 'rxjs'
 import { HttpClient } from '@angular/common/http';
 import { Register } from './register';
@@ -8,21 +8,11 @@ import { Register } from './register';
 })
 export class RegisterService {
 
-  constructor( private HttpClient:HttpClient) { }
+  constructor( private httpClient:HttpClient) { }
 
   SaveUser(newUser:Register):Observable<Register>
   {
-    return this.HttpClient.post<Register>
-    ("https://localhost:44361/api/Employee",newUser)
+    return this.httpClient.post<Register>
+    ("https://localhost:7129/api/UserAuthentication/Register",newUser);
   }
-  Savepassword(savepassword:Register):Observable<Register>
-  {
-    return this.HttpClient.post<Register>
-    ("",savepassword)
-  }
-     SaveRole(saveRoles:Register):Observable<Register>
-     {
-      return this.HttpClient.post<Register>
-      ("",saveRoles)
-     }
 }

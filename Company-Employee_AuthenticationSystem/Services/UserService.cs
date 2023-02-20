@@ -91,15 +91,15 @@ namespace Company_Employee_AuthenticationSystem.Services
         public async Task<bool> IsUnique(string userName)
         {
            var checkInDb= await _userManager.FindByNameAsync(userName);
-            if(checkInDb == null) return false;
-            return true;
+            if(checkInDb == null) return true;
+            return false;
         }
         #endregion
 
         #region To register new user and assigning them roles
         public async Task<bool> RegisterUser(ApplicationUser userCredentials)
         {
-            var user =await _userManager.CreateAsync(userCredentials, userCredentials.PasswordHash );
+            var user =await _userManager.CreateAsync(userCredentials, userCredentials.PasswordHash);
             if (!user.Succeeded) return false;
             await _userManager.AddToRoleAsync(userCredentials ,userCredentials.Role);
             return true;    

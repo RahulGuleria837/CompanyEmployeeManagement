@@ -16,5 +16,8 @@ namespace Company_Employee_AuthenticationSystem
         public DateTime RefreshTokenExpiry { get; set; }
     [NotMapped]
     public string? Role { get; set; }
+
+
+
   }
 }

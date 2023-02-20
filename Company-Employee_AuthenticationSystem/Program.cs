@@ -29,6 +29,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 //builder.Services.AddScoped<RoleManager<ApplicationRole>, ApplicationRoleManager>();
 //builder.Services.AddScoped<ApplicationRoleStore>();
 
+//Adding Services and Repoitory here 
 builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
