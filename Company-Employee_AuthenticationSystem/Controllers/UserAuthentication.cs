@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Internal;
 using Company_Employee_AuthenticationSystem.DTO;
+using Company_Employee_AuthenticationSystem.Models.DTO;
 using Company_Employee_AuthenticationSystem.Services.IServiceContract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -8,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Company_Employee_AuthenticationSystem.LoginViewModel
-{ 
-namespace Company_Employee_AuthenticationSystem.Controllers
 {
-    [Route("api/[controller]")]
+    namespace Company_Employee_AuthenticationSystem.Controllers
+    {
+        [Route("api/[controller]")]
     [ApiController]
     public class UserAuthentication : ControllerBase
 

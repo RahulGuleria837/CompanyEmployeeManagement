@@ -1,5 +1,7 @@
 using Company_Employee_AuthenticationSystem;
-using Company_Employee_AuthenticationSystem.DTOMapping;
+using Company_Employee_AuthenticationSystem.Models.DTO.DTOMapping;
+using Company_Employee_AuthenticationSystem.Repository.IRepository;
+using Company_Employee_AuthenticationSystem.Repository;
 using Company_Employee_AuthenticationSystem.Services;
 using Company_Employee_AuthenticationSystem.Services.IServiceContract;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +34,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 //Adding Services and Repoitory here 
 builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<IUserService, UserService>();
+//For Repository Adding IUnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //DTO
 builder.Services.AddAutoMapper(typeof(MappingProfile));

@@ -1,50 +1,74 @@
 ﻿using AutoMapper;
+using Company_Employee_AuthenticationSystem.DTO;
 using Company_Employee_AuthenticationSystem.Models;
+using Company_Employee_AuthenticationSystem.Repository;
 using Company_Employee_AuthenticationSystem.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company_Employee_AuthenticationSystem.Controllers
 {
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class EmployeeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+     
         private IMapper _mapper;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeeController(ApplicationDbContext context, IMapper mapper, IEmployeeRepository employeeRepository)
+        public EmployeeController( IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _context = context;
+           
             _mapper = mapper;
-            _employeeRepository = employeeRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public  IActionResult  GetEmployee(Employee employee)
+        public  IActionResult  GetEmployee()
         {
-            var getemployees = _employeeRepository.Get(employee);
-            return Ok(employee);
+            var listOfEmployee = _unitOfWork.EmployeeRepository.GetAll();
+            if(listOfEmployee == null ) return NotFound(new {message="Employee not Found"});
+            return Ok(listOfEmployee);
         }
 
         [HttpPost]
-        public IActionResult SaveEmployees([FromBody]Employee employee)
+        public IActionResult SaveEmployees([FromBody]EmployeeDTO employeeDTO)
         {
-            _context.Employees.Add(employee);
-            return Ok();
+
+            if (!(employeeDTO != null) && ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var employeeData = _mapper.Map<Employee>(employeeDTO);
+
+            _unitOfWork.EmployeeRepository.Add(employeeData);
+
+            return Ok(new {Message="New Employee Added"});
+
+            
         }
 
         [HttpPut]
-        public IActionResult UpdateEmployee([FromBody] Employee employee)
-        { 
-            _context.Employees.Update(employee);
-            return Ok();
+        public IActionResult UpdateEmployee([FromBody] EmployeeDTO employeeDTO)
+        {
+            if ((employeeDTO == null) && ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updateEmployee = _mapper.Map<Employee>(employeeDTO);
+
+            _unitOfWork.EmployeeRepository.Update(updateEmployee);
+            return Ok(new {Message="Your Employee has been Updated"});
         }
 
         [HttpDelete]
-        public   IActionResult DeleteEmployees([FromBody] int id)
+        public   IActionResult DeleteEmployees([FromBody] int employeeid)
         {
-            var employeeInDb = _context.Employees.Find(id);
-            _context.Employees.Remove(employeeInDb);
-            return Ok();
+            if (employeeid == null) return NotFound();
+            _unitOfWork.EmployeeRepository.Remove(employeeid);
+            return Ok(new {Message="Employee has been deleted"});
         }
     }
 }

@@ -7,7 +7,9 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, FormGroup } from '@angular/forms';
-import{HttpClientModule} from '@angular/common/http'
+import{HttpClientModule} from '@angular/common/http';
+import { EmployeeComponent } from './employee/employee.component';
+import { CompanyComponent } from './company/company.component'
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import{HttpClientModule} from '@angular/common/http'
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    EmployeeComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
