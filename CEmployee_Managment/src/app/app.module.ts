@@ -27,6 +27,7 @@ import { CompanyComponent } from './company/company.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
+    
 
 
   ],

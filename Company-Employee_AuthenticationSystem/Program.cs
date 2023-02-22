@@ -48,6 +48,16 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Company-Employee_AuthenticationSystem", Version = "v1" });
 });
+
+
+// adding cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "THISMyPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+    });
+});
 //JWT
 var appSettingSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingSection);
@@ -111,6 +121,8 @@ using (IServiceScope scope = serviceScopeFactory.CreateScope())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("THISMyPolicy");
 
 app.MapControllers();
 

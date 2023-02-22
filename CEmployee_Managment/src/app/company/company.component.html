@@ -11,6 +11,7 @@
     <table class="table table-borderd table-striped table-active">
         <thead>
             <tr>
+                <td>CompanyID</td>
                 <td>CompanyName</td>
                 <td>CompanyAddress</td>
                 <td>Company Gst No.</td>
@@ -18,10 +19,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr *ngFor=" let company of companyList  ">
+                <td>{{company.companyId}}</td>
+                <td>{{company.company_Name}}</td>
+                <td>{{company.company_Address}}</td>
+                <td>{{company.company_GST}}</td>
                 <td>                    <button  class="btn btn-info" data-toggle="modal" data-target="#editModal">
                       <i class="fa fa-edit"></i> 
                     </button>
