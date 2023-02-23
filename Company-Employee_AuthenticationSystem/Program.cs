@@ -1,5 +1,4 @@
 using Company_Employee_AuthenticationSystem;
-using Company_Employee_AuthenticationSystem.Models.DTO.DTOMapping;
 using Company_Employee_AuthenticationSystem.Repository.IRepository;
 using Company_Employee_AuthenticationSystem.Repository;
 using Company_Employee_AuthenticationSystem.Services;
@@ -13,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
+using Company_Employee_AuthenticationSystem.DTO.DTOMapping;
 
 var builder = WebApplication.CreateBuilder(args);  
 

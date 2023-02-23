@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.Internal;
 using Company_Employee_AuthenticationSystem.DTO;
-using Company_Employee_AuthenticationSystem.Models.DTO;
 using Company_Employee_AuthenticationSystem.Services.IServiceContract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

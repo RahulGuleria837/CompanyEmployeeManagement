@@ -24,10 +24,12 @@
   </div>
 
   
-<div class="form-group">
-  <label for="UserName">Role</label>
-  <input type="text" class="form-control" placeholder="Enter Valid Role" formControlName="role">
-  <span class=" text text-danger" *ngIf="role && role.invalid && role.touched">This field is not valid</span>
+  <div class="mb-3">
+    <label>Role</label>
+    <select class="custom-select" formControlName="roleName">
+      <option value="">Choose your city</option>
+      <option *ngFor="let role of Role" >{{role}}</option>
+    </select>
   </div>
 
   <div class="form-group">

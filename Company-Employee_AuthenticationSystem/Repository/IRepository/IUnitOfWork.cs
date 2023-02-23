@@ -5,5 +5,8 @@
         ICompanyRepository CompanyRepository { get; }
 
         IEmployeeRepository EmployeeRepository { get; }
+
+        IDesignationRepository DesignationRepository { get; }
+        IEmployeeDesignationRepository EmployeeDesignationRepository { get; }
     }
 }

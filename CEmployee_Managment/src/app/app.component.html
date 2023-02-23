@@ -22,7 +22,7 @@
     <div class="d-flex " style="width: 12%;">
       <button *ngIf="loginService.currentUsername!=''" (click)="LogoutClick()" class="btn btn-outline-success my-2 my-sm-0">Logout</button>
       <a routerLink="login" class="btn btn-outline-success me-3" *ngIf="loginService.currentUsername ==''">Login</a>
-
+<a routerLink="register" class="btn btn-outline-success me-3 " *ngIf="loginService.currentUsername ==''">Register</a>
       
   </div>
     </div>

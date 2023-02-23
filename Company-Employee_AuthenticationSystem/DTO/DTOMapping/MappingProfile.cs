@@ -2,7 +2,7 @@
 using Company_Employee_AuthenticationSystem.DTO;
 using Company_Employee_AuthenticationSystem.Models;
 
-namespace Company_Employee_AuthenticationSystem.Models.DTO.DTOMapping
+namespace Company_Employee_AuthenticationSystem.DTO.DTOMapping
 {
     public class MappingProfile : Profile
     {
@@ -10,7 +10,9 @@ namespace Company_Employee_AuthenticationSystem.Models.DTO.DTOMapping
         {
             CreateMap<RegisterDTO, ApplicationUser>().ReverseMap();
             CreateMap<CompanyDTO, Company>().ReverseMap();
-            CreateMap<EmployeeDTO, Employee>().ReverseMap();    
+            CreateMap<EmployeeDTO, Employee>().ReverseMap();
+            CreateMap<DesignationDTO, Designation>().ReverseMap();
+            CreateMap<EmployeeDesignationDTO, EmployeeDesignation>().ReverseMap();
 
 
         }

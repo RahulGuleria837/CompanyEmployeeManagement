@@ -1,6 +1,6 @@
 import { Register } from './../register';
 import { first } from 'rxjs';
-import { FormControl, FormGroup, Validators,  AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators,  AbstractControl, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,12 +9,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  Role:any=['Employee','Company']
   RegisterForm = new FormGroup({
     userName:new FormControl('',[Validators.required ,Validators.minLength(3)]),
     password:new FormControl('',[Validators.required, Validators.pattern('[a-zA-Z]+$')]),
     confirmPassword:new FormControl('',[Validators.required]),
     role:new FormControl('',[Validators.required,Validators.minLength(3)])
+
   });
+constructor(public fb:FormBuilder){}
+
+registrationForm = this.fb.group({
+  roleName:["",[Validators.required]]
+})
+
 
   
 

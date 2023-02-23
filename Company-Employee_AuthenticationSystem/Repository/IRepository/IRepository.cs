@@ -9,7 +9,7 @@ namespace Company_Employee_AuthenticationSystem.Repository.IRepository
 
         void Remove(int id);
         IEnumerable<T> GetAll(Expression<Func<T, bool>> filter= null, Func<IQueryable<T>, IOrderedQueryable<T>>
-         orderBy = null, string includeProperties = null);  //Category,CoverType
+         orderBy = null, string includeProperties = null); 
         void RemoveRange (IEnumerable<T> entity);
 
         T Get(int id);

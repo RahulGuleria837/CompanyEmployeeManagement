@@ -4,6 +4,7 @@ using Company_Employee_AuthenticationSystem;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Employee_AuthenticationSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230223094708_DesignationId")]
+    partial class DesignationId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,7 +193,7 @@ namespace Company_Employee_AuthenticationSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeDesignationId"), 1L, 1);
 
-                    b.Property<int?>("DesignationId")
+                    b.Property<int>("DesignationId")
                         .HasColumnType("int");
 
                     b.Property<int>("EmployeeId")
@@ -410,7 +412,9 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                 {
                     b.HasOne("Company_Employee_AuthenticationSystem.Models.Designation", "Designation")
                         .WithMany()
-                        .HasForeignKey("DesignationId");
+                        .HasForeignKey("DesignationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Company_Employee_AuthenticationSystem.Models.Employee", "Employee")
                         .WithMany()
