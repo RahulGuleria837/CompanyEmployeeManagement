@@ -15,9 +15,11 @@ export class EmployeeService {
     ("https://localhost:7129/api/Employee");
   }
 
-  saveEmployee(newEmployee:Employee):Observable<Employee>
-  {return this.httpclient.post<Employee>
-  ("https://localhost:7129/api/Employee",newEmployee);
+  saveEmployee(newEmployee:Employee):Observable<any>
+  {debugger
+    console.log(newEmployee)
+    return this.httpclient.post<Employee>
+  ("https://localhost:7129/api/Employee",newEmployee); 
 }
 updateEmployee(editEmployee:Employee):Observable<Employee>
 {return this.httpclient.put<Employee>

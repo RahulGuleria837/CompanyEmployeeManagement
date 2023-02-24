@@ -12,5 +12,6 @@ namespace Company_Employee_AuthenticationSystem.DTO
         public string Employee_Pancard_Number { get; set; }
         public string EmployeeAccount_Number { get; set; }
         public string EmployeePF_Number { get; set; }
+        public int CompanyId { get; set; }
     }
 }

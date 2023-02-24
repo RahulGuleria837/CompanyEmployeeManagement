@@ -1,18 +1,19 @@
 export class Employee {
-    EmployeeId:any;
-    EmployeeName:any;
-    EmployeeAddress:any;
-    PanCardNo:any;
-    AccountNo:any;
-    PFNo:any;
+    employeeName:any;
+    employeeAddress:any;
+    employee_Pancard_Number:any;
+    employeeAccount_Number:any;
+    employeePF_Number:any;
+    companyId:any;
      
     constructor()
     {
-        this.EmployeeId="0";
-        this.EmployeeName="";
-        this.PanCardNo="";
-        this.EmployeeAddress="";
-        this.AccountNo="";
-        this.PFNo="";
+    
+        this.employeeName="";
+        this.employeeAddress="";
+        this.employee_Pancard_Number="";
+        this.employeeAccount_Number="";
+        this.employeePF_Number="";
+        this.companyId="";
     }
 }

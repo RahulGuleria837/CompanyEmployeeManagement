@@ -28,20 +28,21 @@ export class EmployeeComponent {
       (error)=>{
         console.log(error);
       }
-      );  
+      );
   }
 saveClick(){
-  this.newEmployee.EmployeeId=0;
+  debugger
+  console.log(this.newEmployee)
   this.employeeService.saveEmployee(this.newEmployee).subscribe(
     (response)=>{
       alert('data Saved');
       this.getAll();
-      this.newEmployee.EmployeeId="";
-      this.newEmployee.EmployeeName="";
-      this.newEmployee.PanCardNo="";
-      this.newEmployee.EmployeeAddress="";
-      this.newEmployee.AccountNo="";
-      this.newEmployee.PFNo="";
+      this.newEmployee.employeeName="";
+      this.newEmployee.employeeAddress="";
+      this.newEmployee.employee_Pancard_Number="";
+      this.newEmployee.employeeAccount_Number="";
+      this.newEmployee.employeePF_Number="";
+      this.newEmployee.companyId=0;
     },
     (error)=>{
       console.log(error);
@@ -49,5 +50,38 @@ saveClick(){
   )
 }
 
+editClick(data:number){
+  this.editEmployee.employeeName=this.employeeList[data].employeeName;
+  this.editEmployee.employee_Pancard_Number=this.employeeList[data].employee_Pancard_Number;
+  this.editEmployee.employeeAddress=this.employeeList[data].employeeAddress;
+  this.editEmployee.employeeAccount_Number=this.employeeList[data].employeeAccount_Number;
+  this.editEmployee.employeePF_Number=this.employeeList[data].employeePF_Number;
+}
+updateClick(){
+  this.employeeService.updateEmployee(this.editEmployee).subscribe(
+    (response)=>{
+      alert('Data Updated successfully')
+      this.getAll;
+    },
+    (error)=>{
+      console.log(error)
+    }
+    );
+}
+
+deleteClick(i:number){
+let ans = confirm('want to delete data')
+if(!ans) return;
+let id = this.employeeList[i].EmployeeId;
+this.employeeService.deleteEmployee(id).subscribe(
+  (response)=>{
+    alert('Data Deleted Successfully')
+    this.getAll();
+  },
+  (error)=>{
+    console.log(error)
+  }
+)
+}
 
 }
