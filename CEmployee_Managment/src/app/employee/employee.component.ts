@@ -31,45 +31,53 @@ export class EmployeeComponent {
       );
   }
 saveClick(){
+  //alert(this.newEmployee.employeeName)
   debugger
-  console.log(this.newEmployee)
+  console.log("This is new Employee",this.newEmployee)
+  this.newEmployee.employeeId=0;
   this.employeeService.saveEmployee(this.newEmployee).subscribe(
     (response)=>{
       alert('data Saved');
-      this.getAll();
-      this.newEmployee.employeeName="";
-      this.newEmployee.employeeAddress="";
-      this.newEmployee.employee_Pancard_Number="";
-      this.newEmployee.employeeAccount_Number="";
-      this.newEmployee.employeePF_Number="";
-      this.newEmployee.companyId=0;
+      this.getAll()
+      this.newEmployee.employeeName=""
+      this.newEmployee.employeeAddress=""
+      this.newEmployee.employee_Pancard_Number=""
+      this.newEmployee.employeeAccount_Number=""
+      this.newEmployee.employeePF_Number=""
+      this.newEmployee.companyId=0 
     },
     (error)=>{
-      console.log(error);
+      console.log("Coming Into Error")
+      console.log(error)
     }
   )
 }
 
-editClick(data:number){
-  this.editEmployee.employeeName=this.employeeList[data].employeeName;
-  this.editEmployee.employee_Pancard_Number=this.employeeList[data].employee_Pancard_Number;
-  this.editEmployee.employeeAddress=this.employeeList[data].employeeAddress;
-  this.editEmployee.employeeAccount_Number=this.employeeList[data].employeeAccount_Number;
-  this.editEmployee.employeePF_Number=this.employeeList[data].employeePF_Number;
+editClick(e:any,i:number){
+  //alert('hit it')
+  debugger
+  this.editEmployee.employeeId=this.employeeList[i].employeeId;
+  this.editEmployee.employeeName=this.employeeList[i].employeeName;
+  this.editEmployee.employee_Pancard_Number=this.employeeList[i].employee_Pancard_Number;
+  this.editEmployee.employeeAddress=this.employeeList[i].employeeAddress;
+  this.editEmployee.employeeAccount_Number=this.employeeList[i].employeeAccount_Number;
+  this.editEmployee.employeePF_Number=this.employeeList[i].employeePF_Number;
+  this.editEmployee.companyId=this.employeeList[i].companyId;
+
+  
 }
 updateClick(){
   this.employeeService.updateEmployee(this.editEmployee).subscribe(
     (response)=>{
-      alert('Data Updated successfully')
       this.getAll;
     },
     (error)=>{
-      console.log(error)
+      console.log(error);
     }
     );
 }
 
-deleteClick(i:number){
+deleteClick(e:any,i:number){
 let ans = confirm('want to delete data')
 if(!ans) return;
 let id = this.employeeList[i].EmployeeId;

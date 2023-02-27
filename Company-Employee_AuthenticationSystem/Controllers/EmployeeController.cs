@@ -37,7 +37,8 @@ namespace Company_Employee_AuthenticationSystem.Controllers
 
             if (!(employeeDTO != null) && ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Ok(new { message = "There is An Error" });
+                //return BadRequest(ModelState);
             }
 
             var employeeData = _mapper.Map<Employee>(employeeDTO);

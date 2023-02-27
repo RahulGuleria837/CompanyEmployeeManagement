@@ -1,0 +1,41 @@
+<h2 class="text-secondary text-center">Employee List</h2>
+
+    
+        <div class="col-12">
+            <div class="col-9 offset-8">
+                <button class="btn btn-info  m-2" data-toggle="modal"data-target="#newModal">
+            <i class="fa fa-plus"></i>NewEmployee</button>
+        </div>
+        </div>
+
+    <table class="table table-borderd table-striped table-active">
+        <thead>
+            <tr>
+                <td>EmployeeId</td>
+                <td>EmployeeName</td>
+                <td>EmployeeAddress</td>
+                <td>Employee_PancardNO.</td>
+                <td>EmployeeAccountNO.</td>
+                <td>EmployeePfNO.</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor=" let employee of EmployeeList">
+                <td>{{employee.employeeId}}</td>
+                <td>{{employee.employeeName}}</td>
+                <td>{{employee.employeeAddress}}</td>
+                <td>{{employee.employee_Pancard_Number}}</td>
+                <td>{{employee.employeeAccount_Number}}</td>
+                <td>{{employee.employeePF_Number}}</td>
+                <td>                    <button  class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                      <i class="fa fa-edit"></i> 
+                    </button>
+                    <button  class="btn btn-danger p-1 m-1">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                   
+                </td>
+            </tr>
+        </tbody>
+    </table>

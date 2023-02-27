@@ -12,14 +12,13 @@ export class EmployeeService {
   constructor(private httpclient:HttpClient) { }
   getAllEmployee():Observable<any>
   {return this.httpclient.get<any>
-    ("https://localhost:7129/api/Employee");
+    ("https://localhost:7129/api/Employee")
   }
 
-  saveEmployee(newEmployee:Employee):Observable<any>
+  saveEmployee(newEmployee:Employee):Observable<Employee>
   {debugger
     console.log(newEmployee)
-    return this.httpclient.post<Employee>
-  ("https://localhost:7129/api/Employee",newEmployee); 
+    return this.httpclient.post<Employee>("https://localhost:7129/api/Employee",newEmployee)
 }
 updateEmployee(editEmployee:Employee):Observable<Employee>
 {return this.httpclient.put<Employee>

@@ -1,4 +1,5 @@
 export class Employee {
+    employeeId:any;
     employeeName:any;
     employeeAddress:any;
     employee_Pancard_Number:any;
@@ -8,12 +9,12 @@ export class Employee {
      
     constructor()
     {
-    
-        this.employeeName="";
-        this.employeeAddress="";
-        this.employee_Pancard_Number="";
-        this.employeeAccount_Number="";
-        this.employeePF_Number="";
-        this.companyId="";
+        this.employeeId=null;
+        this.employeeName=null;
+        this.employeeAddress=null;
+        this.employee_Pancard_Number=null;
+        this.employeeAccount_Number=null;
+        this.employeePF_Number=null;
+        this.companyId=null;
     }
 }

@@ -18,13 +18,21 @@ export class CompanyService {
   {return this.httpClient.post<Company>
   ("https://localhost:7129/api/Company",newCompany)}
 
-  UpdateCompany(editCompany:Company):Observable<Company>
+  updateCompany(editCompany:Company):Observable<Company>
   {return this.httpClient.put<Company>
   ("https://localhost:7129/api/Company",editCompany);}
 
   deleteCompany(id:number):Observable<any>
   {return this.httpClient.delete<any>
   ("https://localhost:7129/api/Company"+ id);}
+
+  getCompanyEmployee(companyId:any):Observable<any>{
+    return this.httpClient.get<any>
+    (`https://localhost:7129/api/Company/EmployeesInTheCompany?companyId=${companyId}`)
+
+  }
+
+  
 
 }
 
