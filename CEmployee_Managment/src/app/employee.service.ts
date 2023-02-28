@@ -1,3 +1,4 @@
+import { Company } from './company';
 import { Employee } from './employee';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -25,7 +26,7 @@ updateEmployee(editEmployee:Employee):Observable<Employee>
 ("https://localhost:7129/api/Employee",editEmployee);}
 
 deleteEmployee(id:Number):Observable<any>
-{return this.httpclient.delete<any>
-("https://localhost:7129/api/Employee" + id);}
+{debugger;return this.httpclient.delete<Employee>
+("https://localhost:7129/api/Employee/" + id);}
 
 }

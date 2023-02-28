@@ -57,7 +57,7 @@ ngOnInit():void{
   updateCompany(){
     this.companyService.updateCompany(this.editCompany).subscribe(
       (response)=>{
-        this.getAll
+        this.getAll();
       },
       (error)=>{
         console.log(error);
@@ -74,6 +74,25 @@ ngOnInit():void{
     },(err)=>{
        console.log(err);
     })
+  }
+  deleteClick(e:any,i:number){
+    debugger
+   
+let ans= confirm('Delete company Data')
+if(!ans) return;
+
+ let id =this.companyList[i].companyId;
+ console.log('id')
+this.companyService.deleteCompany(id).subscribe(
+  (response)=>{
+    alert("company has been deleted");
+    this.getAll();
+  },
+  (error)=>{
+    console.log(error);
+  }
+  
+)
   }
   }
  

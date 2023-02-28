@@ -27,7 +27,7 @@
                 <td>                    <button (click)="editClick($event,i)"  class="btn btn-info" data-toggle="modal" data-target="#editModal">
                       <i class="fa fa-edit"></i> 
                     </button>
-                    <button  class="btn btn-danger p-1 m-1">
+                    <button (click)="deleteClick($event,i)"  class="btn btn-danger p-1 m-1">
                         <i class="fa fa-trash"></i>
                     </button>
                     <button class="btn btn-primary" (click)="EmployeeList(company.companyId)" data-toggle="Modal" data-target="#editModal">viewEmployeeList</button>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-9">
                         <div class="modal-footer" >
-                     <button (click)="saveClick()" class="btn btn-success" data-dismiss="modal">update</button>
+                     <button (click)="updateCompany()" class="btn btn-success" data-dismiss="modal">update</button>
                      <button class="btn btn-danger"data-dismiss="modal">
                         cancel
                     </button>

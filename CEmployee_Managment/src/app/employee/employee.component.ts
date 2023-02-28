@@ -69,7 +69,7 @@ editClick(e:any,i:number){
 updateClick(){
   this.employeeService.updateEmployee(this.editEmployee).subscribe(
     (response)=>{
-      this.getAll;
+      this.getAll();
     },
     (error)=>{
       console.log(error);
@@ -78,9 +78,11 @@ updateClick(){
 }
 
 deleteClick(e:any,i:number){
+  debugger
 let ans = confirm('want to delete data')
 if(!ans) return;
-let id = this.employeeList[i].EmployeeId;
+let id = this.employeeList[i].employeeId;
+console.log('id')
 this.employeeService.deleteEmployee(id).subscribe(
   (response)=>{
     alert('Data Deleted Successfully')

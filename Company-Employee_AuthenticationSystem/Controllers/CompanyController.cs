@@ -53,7 +53,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public IActionResult DeleteCompany(int id)
         {
             _unitOfWork.CompanyRepository.Remove(id);

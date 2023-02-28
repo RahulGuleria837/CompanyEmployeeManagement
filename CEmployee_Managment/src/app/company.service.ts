@@ -23,8 +23,8 @@ export class CompanyService {
   ("https://localhost:7129/api/Company",editCompany);}
 
   deleteCompany(id:number):Observable<any>
-  {return this.httpClient.delete<any>
-  ("https://localhost:7129/api/Company"+ id);}
+  {debugger; return this.httpClient.delete<Company>
+  ("https://localhost:7129/api/Company/"+ id);}
 
   getCompanyEmployee(companyId:any):Observable<any>{
     return this.httpClient.get<any>

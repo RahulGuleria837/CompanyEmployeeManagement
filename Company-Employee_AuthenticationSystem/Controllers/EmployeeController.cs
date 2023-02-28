@@ -64,7 +64,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new {Message="Your Employee has been Updated"});
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public   IActionResult DeleteEmployees([FromBody] int employeeid)
         {
             if (employeeid == null) return NotFound();
