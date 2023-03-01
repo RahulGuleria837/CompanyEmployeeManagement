@@ -1,3 +1,4 @@
+import { Employeelist } from './employeelist';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,6 +13,13 @@ export class EmployeelistService {
   getCompanyEmployee(companyId:any):Observable<any>{
     return this.httpClient.get<any>
     (`https://localhost:7129/api/Company/EmployeesInTheCompany?companyId=${companyId}`)
+
+  }
+
+  saveEmployee(newEmployee:Employeelist):Observable<Employeelist>
+  {
+    debugger
+    return this.httpClient.post<Employeelist>("https://localhost:7129/api/Employee",newEmployee)
 
   }
 }

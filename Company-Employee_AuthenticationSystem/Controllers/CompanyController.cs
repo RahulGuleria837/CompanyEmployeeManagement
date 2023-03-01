@@ -3,6 +3,7 @@ using Company_Employee_AuthenticationSystem.DTO;
 using Company_Employee_AuthenticationSystem.Models;
 using Company_Employee_AuthenticationSystem.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,15 @@ namespace Company_Employee_AuthenticationSystem.Controllers
         private IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CompanyController(IMapper mapper, IUnitOfWork unitOfWork, ApplicationDbContext context)
+        public CompanyController(IMapper mapper, IUnitOfWork unitOfWork, ApplicationDbContext context,UserManager<ApplicationUser> userManager)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _context = context;
+            _userManager = userManager;
+
         }
         [HttpGet]
 
@@ -30,7 +34,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
         {
             var companyList = _unitOfWork.CompanyRepository.GetAll();
             if (companyList == null)
-                return NotFound(new { Message = "No data avilable" });
+            { return NotFound(new { Message = "No data avilable" }); }
             return Ok(companyList);
         }
         [HttpPost]

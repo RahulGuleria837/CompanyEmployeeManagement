@@ -4,6 +4,7 @@ using Company_Employee_AuthenticationSystem;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Employee_AuthenticationSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230301062745_rolesinEmployee")]
+    partial class rolesinEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,6 +104,7 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyId"), 1L, 1);
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Company_Address")
@@ -390,7 +393,9 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                 {
                     b.HasOne("Company_Employee_AuthenticationSystem.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ApplicationUser");
                 });
@@ -402,7 +407,7 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("Company_Employee_AuthenticationSystem.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("Company_Employees")
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("ApplicationUser");
@@ -500,6 +505,11 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Company_Employee_AuthenticationSystem.Models.Company", b =>
+                {
+                    b.Navigation("Company_Employees");
                 });
 #pragma warning restore 612, 618
         }

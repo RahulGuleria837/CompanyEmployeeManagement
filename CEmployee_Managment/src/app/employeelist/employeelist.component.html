@@ -17,6 +17,7 @@
                 <td>Employee_PancardNO.</td>
                 <td>EmployeeAccountNO.</td>
                 <td>EmployeePfNO.</td>
+                <td>Roles Assigned</td>
                 <td>Actions</td>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                 <td>{{employee.employee_Pancard_Number}}</td>
                 <td>{{employee.employeeAccount_Number}}</td>
                 <td>{{employee.employeePF_Number}}</td>
+                <td>{{employee.role}}</td>
                 <td>                    <button  class="btn btn-primary" data-toggle="modal" data-target="#editModal">
                       <i class="fa fa-edit"></i> 
                     </button>
@@ -39,3 +41,90 @@
             </tr>
         </tbody>
     </table>
+    <form>
+        <div class="modal" id="newModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+    
+                    <div class="model-header">
+                        <div class="modal-title">NewEmployee</div>
+                        <button class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtname" class="col-sm-4">EmployeeName</label>
+                            <div class="col-8">
+                                <input type="text" [(ngModel)]="newEmployee.employeeName" name="employeeName" placeholder="Enter Name" id="txtname" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtaddress" class="col-sm-4">EmployeeAddress</label>
+                            <div class="col-8">
+                                <input type="text" name="employeeAddress" [(ngModel)]="newEmployee.employeeAddress" id="txtaddress" placeholder="Enter Address" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtpan" class="col-sm-4">EmployeePanNo.</label>
+                            <div class="col-8">
+                                <input type="text" name="employee_Pancard_Number" [(ngModel)]="newEmployee.employee_Pancard_Number" id="txtpan" placeholder="Enter PanCardNo" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtaccno" class="col-sm-4">EmployeeAccountNo</label>
+                            <div class="col-8">
+                                <input type="text" name="employeeAccount_Number" [(ngModel)]="newEmployee.employeeAccount_Number" id="txtaccno" placeholder="Enter AccountNo" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtpfno" class="col-sm-4">Employee PFNo.</label>
+                            <div class="col-8">
+                                <input type="text" name="employeePF_Number" [(ngModel)]="newEmployee.employeePF_Number" id="txtpfno" placeholder="Enter PFNo" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtcompanyid" class="col-sm-4">CompanyID</label>
+                            <div class="col-8">
+                                <input type="number" name="companyId" [(ngModel)]="newEmployee.companyId"  id="txtcompanyid" placeholder="Enter CompanyID" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtcompanyid" class="col-sm-4">Select Role</label>
+                            <div class="col-8">
+                                <select class="custom-select" formControlName="roleName">
+                                    <option ([ngModel])="newEmployee.role" value=></option>
+                                    <option>Employee</option>
+                                    <option>Company</option>
+                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="modal-footer">
+                        <button (click)="saveClick()" class="btn btn-success" data-dismiss="modal">
+                            save
+                        </button>
+                        <button class="btn btn-danger"data-dismiss="modal">
+                            cancel
+                        </button>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </form>

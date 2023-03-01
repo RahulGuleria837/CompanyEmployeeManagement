@@ -17,7 +17,7 @@ export class LoginService {
     return this.httpClient.post<any>("https://localhost:7129/api/UserAuthentication/Login",login).pipe(map(u=>{
       if(u){
         this.currentUsername=u.username;
-        sessionStorage["currentUser"]=JSON.stringify(u);
+        localStorage["currentUser"]=JSON.stringify(u);
       }
       else{
         return u;
