@@ -6,6 +6,7 @@ export class Employee {
     employeeAccount_Number:any;
     employeePF_Number:any;
     companyId:any;
+   
      
     constructor()
     {
@@ -16,5 +17,4 @@ export class Employee {
         this.employeeAccount_Number=null;
         this.employeePF_Number=null;
         this.companyId=null;
-    }
-}
+    }}

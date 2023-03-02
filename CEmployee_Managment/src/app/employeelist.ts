@@ -7,6 +7,13 @@ export class Employeelist {
     employeePF_Number:any;
     companyId:any;
     role:any
+    userName:any;
+    email:any;
+    password:any;
+    designationId:any;
+    designationName:any;
+    
+   
      
     constructor()
     {
@@ -18,6 +25,11 @@ export class Employeelist {
         this.employeePF_Number=null;
         this.companyId=null;
         this.role=null;
+        this.userName=null;
+        this.email=null;
+        this.password=null;
+        this.designationId=null;
+        this.designationId=null;
     }
 
     }

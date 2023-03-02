@@ -1,7 +1,7 @@
 import { EmployeelistService } from './../employeelist.service';
 import { Component, OnInit } from '@angular/core';
 import { Employeelist } from './../employeelist';
-
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -11,13 +11,17 @@ import { Employeelist } from './../employeelist';
 })
 export class EmployeelistComponent implements OnInit {
 EmployeeList:any []=[];
-employeeList:any[]=[];
 newEmployee:Employeelist= new Employeelist();
-Role:any=['Employee','Company']
+newDesignation:Employeelist=new Employeelist();
+
+Role=["Company","Employee"];
+
+
+
 
 
  
-  constructor(private employeelistService:EmployeelistService){}
+  constructor(private employeelistService:EmployeelistService,private http: HttpClient){}
 ngOnInit(): void {
   this.EmployeeList = history.state.data;
   console.log(this.EmployeeList);
@@ -25,6 +29,7 @@ ngOnInit(): void {
 
 saveClick(){
   debugger
+  console.log(this.newEmployee.role);
   alert(this.newEmployee.employeeName)
   debugger
   console.log("This is new Employee",this.newEmployee)
@@ -32,14 +37,7 @@ saveClick(){
   this.employeelistService.saveEmployee(this.newEmployee).subscribe(
     (response)=>{
       alert('data Saved');
-      
-      this.newEmployee.employeeName=""
-      this.newEmployee.employeeAddress=""
-      this.newEmployee.employee_Pancard_Number=""
-      this.newEmployee.employeeAccount_Number=""
-      this.newEmployee.employeePF_Number=""
-      this.newEmployee.companyId=0 
-      this.newEmployee.role=""
+  
     },
     (error)=>{
       console.log("Coming Into Error")
@@ -47,8 +45,18 @@ saveClick(){
     }
   )
 }
+getValue(event:any){
+  this.newEmployee.role = event.target.value;
+}
 
-
+saveDesignation(){
+  this.newDesignation.designationId=0;
+  this.employeelistService.saveDesignation(this.newDesignation).subscribe(
+    (response)=>{
+      alert("Designation added")
+    }
+  )
+}
   }
 
 

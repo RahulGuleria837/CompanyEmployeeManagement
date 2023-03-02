@@ -6,6 +6,18 @@
                 <button class="btn btn-info  m-2" data-toggle="modal"data-target="#newModal">
             <i class="fa fa-plus"></i>NewEmployee</button>
         </div>
+        <div>
+        <div class="col-2">
+            <button class="btn btn-secondary m-2" data-toggle="modal"data-target="#newDesignation">
+                <i class="fa fa-plus"></i>ADD DESIGNATION</button>
+        </div>
+        <div>
+                <button class="btn btn-secondary m-2" data-toggle="modal"data-target="#getDesignation">
+                    <i class="fa fa-plus"></i>ASSIGN DESIGNATION</button>
+        
+                </div>
+        
+            
         </div>
 
     <table class="table table-borderd table-striped table-active">
@@ -105,16 +117,38 @@
                         <div class="form-group row">
                             <label for="txtcompanyid" class="col-sm-4">Select Role</label>
                             <div class="col-8">
-                                <select class="custom-select" formControlName="roleName">
-                                    <option ([ngModel])="newEmployee.role" value=></option>
-                                    <option>Employee</option>
-                                    <option>Company</option>
+                                <select class="custom-select"(change)="getValue($event)" formControlName="roleName">
+                                    <option  *ngFor="let role of Role" >{{role}}</option>
+                                
                                   </select>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtusername" class="col-sm-4">UserName</label>
+                            <div class="col-8">
+                                <input type="text" name="companyId" [(ngModel)]="newEmployee.userName"  id="username" placeholder="Enter userName" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtemail" class="col-sm-4">Email</label>
+                            <div class="col-8">
+                                <input type="text" name="companyId" [(ngModel)]="newEmployee.email"  id="txtemail" placeholder="Enter Email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
                     
-                    
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtpswrd" class="col-sm-4">password</label>
+                            <div class="col-8">
+                                <input type="password" name="companyId" [(ngModel)]="newEmployee.password"  id="txtpswrd" placeholder="Enter password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button (click)="saveClick()" class="btn btn-success" data-dismiss="modal">
                             save
@@ -127,4 +161,37 @@
                 </div>
             </div>
         </div>
+    </form>
+    <!--ADD DESIgnation-->
+
+    <form>
+        <div class="modal" id="newDesignation" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="model-header">
+                        <div class="modal-title text-primary text-center text-primary">--ADD DESIGNATION--</div>
+                    </div>
+
+                    <div class="modal-body" title="New DESIGNATION">
+                        <div class="form-group row">
+                            <label for="txtdesignation" class="col-sm-4">ADD DESIGNATION</label>
+                            <div class="col-8">
+                                <input type="text" name="designationName"[(ngModel)]="newDesignation.designationName" placeholder="ADD DESIGNATION" id="txtdesignation" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer margin-auto">
+                        <div class="auto-max">
+                        <button (click)="saveDesignation()" class="btn btn-success" data-dismiss="modal">
+                            save
+                        </button>
+                        <button class="btn btn-danger"data-dismiss="modal">
+                            cancel
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
     </form>

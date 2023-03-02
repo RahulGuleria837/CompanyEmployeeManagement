@@ -88,11 +88,11 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             //**
             var employee = _mapper.Map<Employee>(employeeDTO);
 
-            var userExists = await _userService.IsUnique(employeeDTO.Username);
+            var userExists = await _userService.IsUnique(employeeDTO.UserName);
             if (userExists == null) return BadRequest(userExists);
             var user = new ApplicationUser
             {
-                UserName = employeeDTO.Username,
+                UserName = employeeDTO.UserName,
                 Email = employeeDTO.Email,
                 PasswordHash = employeeDTO.Password,
                 Role = employeeDTO.Role,

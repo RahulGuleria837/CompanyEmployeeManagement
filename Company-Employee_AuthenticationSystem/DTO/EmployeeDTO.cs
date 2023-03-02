@@ -15,7 +15,7 @@ namespace Company_Employee_AuthenticationSystem.DTO
         public int CompanyId { get; set; }
 
         [Required]
-        public string? Username { get; set; }
+        public string? UserName { get; set; }
 
         [EmailAddress]
         [Required]

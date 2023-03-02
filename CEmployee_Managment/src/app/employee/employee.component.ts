@@ -53,6 +53,7 @@ saveClick(){
   )
 }
 
+
 editClick(e:any,i:number){
   //alert('hit it')
   debugger
