@@ -26,4 +26,9 @@ export class EmployeelistService {
   saveDesignation(newDesignation:Employeelist){
     return this.httpClient.post<Employeelist>("https://localhost:7129/api/Designation/AddDesignation",newDesignation)
   }
+
+  giveDesignation(assignDesignation:Employeelist){
+    return this.httpClient.post<Employeelist>("https://localhost:7129/api/Designation/AddEmployeeDesignation",assignDesignation)
+
+  }
 }

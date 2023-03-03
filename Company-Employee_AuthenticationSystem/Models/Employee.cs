@@ -20,6 +20,10 @@ namespace Company_Employee_AuthenticationSystem.Models
         public string? ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
         public List<Designation>? Employee_Designations { get; set; }
+        public int EmployeeDesignationId { get; set; }
+        [ForeignKey("EmployeeDesignationId")]
+
+        public EmployeeDesignation? EmployeeDesignation { get; set; }
         public string Role { get; set; }
 
     }

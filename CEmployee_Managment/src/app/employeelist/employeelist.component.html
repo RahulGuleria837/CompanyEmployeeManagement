@@ -1,24 +1,29 @@
-<h2 class="text-secondary text-center">List of Employees in Company</h2>
+<h2 class="text-secondary text-center">EMPLOYEES IN COMPANY</h2>
 
-    
-        <div class="col-12">
-            <div class="col-9 offset-8">
+        
+            <div class="col-10 offset-10">
                 <button class="btn btn-info  m-2" data-toggle="modal"data-target="#newModal">
             <i class="fa fa-plus"></i>NewEmployee</button>
         </div>
-        <div>
-        <div class="col-2">
-            <button class="btn btn-secondary m-2" data-toggle="modal"data-target="#newDesignation">
+        
+        <div class="row">
+            <div class="col-3">
+            <button class="btn btn-outline-secondary m-2" data-toggle="modal"data-target="#newDesignation">
                 <i class="fa fa-plus"></i>ADD DESIGNATION</button>
-        </div>
-        <div>
-                <button class="btn btn-secondary m-2" data-toggle="modal"data-target="#getDesignation">
+            </div>
+            <div class="col-3">
+                <button class="btn btn-outline-secondary m-2" data-toggle="modal"data-target="#getDesignation">
                     <i class="fa fa-plus"></i>ASSIGN DESIGNATION</button>
-        
                 </div>
-        
-            
+                <div class="col-3">
+                    <button class="btn btn-outline-primary m-2" data-toggle="modal"data-target="#designationassign">
+                        <i class="fa fa-caret-square-o-down"></i>Designation List</button>
+                    </div>
+               
         </div>
+
+
+        
 
     <table class="table table-borderd table-striped table-active">
         <thead>
@@ -53,6 +58,7 @@
             </tr>
         </tbody>
     </table>
+    <!--NewEmployee-->
     <form>
         <div class="modal" id="newModal" role="dialog">
             <div class="modal-dialog">
@@ -128,7 +134,7 @@
                         <div class="form-group row">
                             <label for="txtusername" class="col-sm-4">UserName</label>
                             <div class="col-8">
-                                <input type="text" name="companyId" [(ngModel)]="newEmployee.userName"  id="username" placeholder="Enter userName" class="form-control">
+                                <input type="text" name="userName" [(ngModel)]="newEmployee.userName"  id="username" placeholder="Enter userName" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -136,7 +142,7 @@
                         <div class="form-group row">
                             <label for="txtemail" class="col-sm-4">Email</label>
                             <div class="col-8">
-                                <input type="text" name="companyId" [(ngModel)]="newEmployee.email"  id="txtemail" placeholder="Enter Email" class="form-control">
+                                <input type="text" name="email" [(ngModel)]="newEmployee.email"  id="txtemail" placeholder="Enter Email" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -145,7 +151,7 @@
                         <div class="form-group row">
                             <label for="txtpswrd" class="col-sm-4">password</label>
                             <div class="col-8">
-                                <input type="password" name="companyId" [(ngModel)]="newEmployee.password"  id="txtpswrd" placeholder="Enter password" class="form-control">
+                                <input type="password" name=".password" [(ngModel)]="newEmployee.password"  id="txtpswrd" placeholder="Enter password" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -169,7 +175,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="model-header">
-                        <div class="modal-title text-primary text-center text-primary">--ADD DESIGNATION--</div>
+                        <div class="modal-title text-info text-bold  text-center text-primary"><h5>--ADD DESIGNATION--</h5></div>
                     </div>
 
                     <div class="modal-body" title="New DESIGNATION">
@@ -194,4 +200,62 @@
             </div>
         </div>
     
+    </form>
+    <!--AssignDesignation-->
+    <form>
+        <div class="modal" id="getDesignation" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="model-header">
+                        <div class="modal-title text-secondary text-center text-bold"><h3> DESIGNATION TO EMPLOYEE</h3></div>
+                    </div>
+
+                    <div class="modal-body" title="New DESIGNATION">
+                        <div class="form-group row">
+                            <label for="txtempid" class="col-sm-4 text-info">EMPLOYEE ID</label>
+                            <div class="col-8">
+                                <input type="text" name="employeeID"[(ngModel)]="assignDesignation.employeeId" placeholder="Enter valid Id" id="empid" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtdesignationName" class="col-sm-4 text-info">DesginationName</label>
+                            <div class="col-8">
+                                <input type="text" name="designationName"[(ngModel)]="assignDesignation.designationName" placeholder="EnTer Valid Designation Name" id="txtdesignationName" class="form-control">
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div class="modal-footer margin-auto">
+                        <div class="auto-max">
+                        <button (click)="employeeDesignation()" class="btn btn-success" data-dismiss="modal">
+                            save
+                        </button>
+                        <button class="btn btn-danger"data-dismiss="modal">
+                            cancel
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!--For Employee ASSIGNED DESIGNATION-->
+    <form>
+        <div class="modal" id="designationassign" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="model-header">
+                        <div class="modal-title text-secondary text-center text-bold"><h6>DESIGNATION ASSIGNED</h6></div>
+                    </div>
+                    <div class="modal-body" title="New DESIGNATION">
+                        <div class="form-group row">
+                            <label for="txtempid" class="col-sm-4 text-info">sdfgf</label>
+                            <div class="col-8">
+                        
+                            </div>
+                        </div>
+                        </div>
+                </div></div></div>
     </form>

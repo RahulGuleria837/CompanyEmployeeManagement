@@ -13,6 +13,10 @@ export class Employeelist {
     designationId:any;
     designationName:any;
     
+    EmployeeDesignationId:any;
+    EmployeeId:any;
+    DesignationId:any;
+    DesignationName:any;
    
      
     constructor()
@@ -30,6 +34,11 @@ export class Employeelist {
         this.password=null;
         this.designationId=null;
         this.designationId=null;
+
+        this.EmployeeDesignationId=null;
+        this.employeeId=null;
+        this.designationId=null;
+        this.designationName=null;
     }
 
     }

@@ -19,15 +19,19 @@ namespace Company_Employee_AuthenticationSystem.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IDesignationRepository _designationRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public CompanyController(IMapper mapper, IUnitOfWork unitOfWork, ApplicationDbContext context,UserManager<ApplicationUser> userManager)
+        public CompanyController(IMapper mapper, IUnitOfWork unitOfWork, ApplicationDbContext context, UserManager<ApplicationUser> userManager, IDesignationRepository designationRepository, IEmployeeRepository employeeRepository)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _context = context;
             _userManager = userManager;
-
+            _designationRepository = designationRepository;
+            _employeeRepository = employeeRepository;
         }
+
         [HttpGet]
 
         public IActionResult GetCompany()
@@ -64,7 +68,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new { Message = "Employee has been Deleted" });
 
         }
-
+        //TO GET ALL COMPANY EMPLOYEES (in )
         [HttpGet]
         [Route("EmployeesInTheCompany")]
         public IActionResult EmployeesInTheCompany(int companyId)
@@ -73,5 +77,32 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             if (employeeInDb == null) return NotFound(new { message = "No employee registered in the company" });
             return Ok(new { employeeInDb, message = "Employee List Sucessfully" });
         }
+
+
+        /*[HttpGet]
+
+        [Route("GetAssignDesignation")]
+        public IActionResult GetAssignDesgination(int companyId)
+        {
+             var employees = _context.Employees
+                .Where(e => e.CompanyId == companyId)
+                .Include(e => e.EmployeeDesignation)
+                .ThenInclude(ed => ed.Designation)
+                .Where(e => e.EmployeeDesignation.any())
+                .Select(e => new
+                {
+                    EmployeeId = e.EmployeeId,
+                    EmployeeName = e.EmployeeName,
+                    Designations = e.EmployeeDesignations.Select(ed => ed.Designation.Name)
+                })
+                .ToList();
+
+            if (employees.Count == 0)
+            {
+                return NotFound(new { message = "No employee registered in the company" });
+            }
+
+            return Ok(employees);
+        }*/
     }
 }

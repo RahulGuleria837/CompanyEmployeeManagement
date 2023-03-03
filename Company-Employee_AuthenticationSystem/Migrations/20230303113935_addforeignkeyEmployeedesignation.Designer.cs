@@ -4,6 +4,7 @@ using Company_Employee_AuthenticationSystem;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Employee_AuthenticationSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230303113935_addforeignkeyEmployeedesignation")]
+    partial class addforeignkeyEmployeedesignation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,6 +156,9 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DesignationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("EmployeeAccount_Number")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -186,6 +191,8 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("DesignationId");
 
                     b.HasIndex("EmployeeDesignationId")
                         .IsUnique();
@@ -240,21 +247,6 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Leaves");
-                });
-
-            modelBuilder.Entity("DesignationEmployee", b =>
-                {
-                    b.Property<int>("Employee_DesignationsDesignationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeesEmployeeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Employee_DesignationsDesignationId", "EmployeesEmployeeId");
-
-                    b.HasIndex("EmployeesEmployeeId");
-
-                    b.ToTable("DesignationEmployee");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -409,6 +401,10 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
+                    b.HasOne("Company_Employee_AuthenticationSystem.Models.Designation", null)
+                        .WithMany("Employees")
+                        .HasForeignKey("DesignationId");
+
                     b.HasOne("Company_Employee_AuthenticationSystem.Models.EmployeeDesignation", "EmployeeDesignation")
                         .WithOne("Employee")
                         .HasForeignKey("Company_Employee_AuthenticationSystem.Models.Employee", "EmployeeDesignationId")
@@ -440,21 +436,6 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("DesignationEmployee", b =>
-                {
-                    b.HasOne("Company_Employee_AuthenticationSystem.Models.Designation", null)
-                        .WithMany()
-                        .HasForeignKey("Employee_DesignationsDesignationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Company_Employee_AuthenticationSystem.Models.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -506,6 +487,11 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Company_Employee_AuthenticationSystem.Models.Designation", b =>
+                {
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("Company_Employee_AuthenticationSystem.Models.EmployeeDesignation", b =>

@@ -13,6 +13,8 @@ export class EmployeelistComponent implements OnInit {
 EmployeeList:any []=[];
 newEmployee:Employeelist= new Employeelist();
 newDesignation:Employeelist=new Employeelist();
+assignDesignation:Employeelist=new Employeelist();
+
 
 Role=["Company","Employee"];
 
@@ -54,6 +56,16 @@ saveDesignation(){
   this.employeelistService.saveDesignation(this.newDesignation).subscribe(
     (response)=>{
       alert("Designation added")
+    }
+  )
+}
+employeeDesignation(){
+  alert("ok")
+  this.assignDesignation.EmployeeDesignationId=0;
+  this.assignDesignation.designationId=0;
+  this.employeelistService.giveDesignation(this.assignDesignation).subscribe(
+    (response)=>{
+      alert("Designation assigned to employee")
     }
   )
 }

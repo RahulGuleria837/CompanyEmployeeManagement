@@ -116,5 +116,8 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new { message = "Employee Designation Addded Sucessfully" });
 
         }
+
+
+      
     }
 }
