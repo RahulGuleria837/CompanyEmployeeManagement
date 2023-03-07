@@ -38,6 +38,7 @@ ngOnInit():void{
 
   }
   saveClick(){
+    debugger
     this.newCompany.companyId=0
     this.companyService.saveCompany(this.newCompany).subscribe(
       (response)=>{

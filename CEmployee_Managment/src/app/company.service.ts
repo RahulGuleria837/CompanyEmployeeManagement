@@ -15,7 +15,8 @@ export class CompanyService {
   ("https://localhost:7129/api/Company");}
 
   saveCompany(newCompany:Company):Observable<Company>
-  {return this.httpClient.post<Company>
+  { debugger 
+    return this.httpClient.post<Company>
   ("https://localhost:7129/api/Company",newCompany)}
 
   updateCompany(editCompany:Company):Observable<Company>

@@ -9,27 +9,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Company_Employee_AuthenticationSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Company")]
     [ApiController]
 
 
-    public class CompanyController : ControllerBase
+    public class CompanyController : Controller
     {
         private IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IDesignationRepository _designationRepository;
-        private readonly IEmployeeRepository _employeeRepository;
-
-        public CompanyController(IMapper mapper, IUnitOfWork unitOfWork, ApplicationDbContext context, UserManager<ApplicationUser> userManager, IDesignationRepository designationRepository, IEmployeeRepository employeeRepository)
+       
+        public CompanyController(IMapper mapper, IUnitOfWork unitOfWork,  ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _context = context;
             _userManager = userManager;
-            _designationRepository = designationRepository;
-            _employeeRepository = employeeRepository;
+     
         }
 
         [HttpGet]

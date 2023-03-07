@@ -4,6 +4,8 @@ using Company_Employee_AuthenticationSystem.Models;
 using Company_Employee_AuthenticationSystem.Repository;
 using Company_Employee_AuthenticationSystem.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Company_Employee_AuthenticationSystem.Controllers
 {
@@ -118,6 +120,32 @@ namespace Company_Employee_AuthenticationSystem.Controllers
         }
 
 
-      
+        /*[Route("GetAssignDesignation")]*/
+        [HttpGet("{companyId:int}")]
+        public IActionResult GetAssignDesgination(int companyId)
+        {
+            var employees = _context.Employees
+               .Where(e => e.CompanyId == companyId)
+               .Include(e => e.EmployeeDesignation).
+               ThenInclude(ed => ed.Designation)
+               .Where(e=>e.EmployeeDesignation!=null)
+               .Select(e => new
+               {
+                   EmployeeId = e.EmployeeId,
+                   EmployeeName = e.EmployeeName,
+                   Designations = e.EmployeeDesignation.Designation
+               })
+               .ToList();
+
+            if (employees.Count == 0)
+            {
+                return NotFound(new { message = "No employee registered in the company" });
+            }
+
+            return Ok(employees);
+        }
+
+
+
     }
 }

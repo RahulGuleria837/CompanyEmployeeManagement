@@ -14,8 +14,9 @@ namespace Company_Employee_AuthenticationSystem.Models
         [ForeignKey("DesignationId")]
         public Designation? Designation { get; set; }
 
-
-
-
+        internal bool Any()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

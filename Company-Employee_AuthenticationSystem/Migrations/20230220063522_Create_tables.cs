@@ -74,29 +74,7 @@ namespace Company_Employee_AuthenticationSystem.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "DesignationEmployee",
-                columns: table => new
-                {
-                    Employee_DesignationsDesignationId = table.Column<int>(type: "int", nullable: false),
-                    EmployeesEmployeeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DesignationEmployee", x => new { x.Employee_DesignationsDesignationId, x.EmployeesEmployeeId });
-                    table.ForeignKey(
-                        name: "FK_DesignationEmployee_Designations_Employee_DesignationsDesignationId",
-                        column: x => x.Employee_DesignationsDesignationId,
-                        principalTable: "Designations",
-                        principalColumn: "DesignationId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DesignationEmployee_Employees_EmployeesEmployeeId",
-                        column: x => x.EmployeesEmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
+           
 
             migrationBuilder.CreateTable(
                 name: "EmployeeDesignations",
@@ -172,9 +150,7 @@ namespace Company_Employee_AuthenticationSystem.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "DesignationEmployee");
-
+           
             migrationBuilder.DropTable(
                 name: "EmployeeDesignations");
 
