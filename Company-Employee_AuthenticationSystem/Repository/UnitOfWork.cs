@@ -13,6 +13,7 @@ namespace Company_Employee_AuthenticationSystem.Repository
             EmployeeRepository = new EmployeeRepository(_context);
             DesignationRepository= new DesignationRepository(_context);
             EmployeeDesignationRepository= new EmployeeDesignationRepository(_context);
+            LeaveRepository=new LeaveRepository(_context);
 
         }
 
@@ -25,5 +26,7 @@ namespace Company_Employee_AuthenticationSystem.Repository
         public IDesignationRepository DesignationRepository { get; private set; }
 
         public IEmployeeDesignationRepository EmployeeDesignationRepository { get; private set; }
+
+        public ILeaveRepository LeaveRepository { get; private set; }
     }
 }

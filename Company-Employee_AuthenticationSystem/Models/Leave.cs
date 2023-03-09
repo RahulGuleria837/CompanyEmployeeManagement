@@ -9,9 +9,11 @@ namespace Company_Employee_AuthenticationSystem.Models
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
        public LeaveStatus LeaveStatus { get; set; }
-        public DateTime LeaveTaken { get; set; }
-
         public string Status { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Reason { get; set; }
+      
 
     }
 }

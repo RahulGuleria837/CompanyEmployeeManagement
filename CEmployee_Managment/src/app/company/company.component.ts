@@ -66,7 +66,7 @@ ngOnInit():void{
     )
   }
   EmployeeList(id:any) {
-    alert("hello")
+    alert("Employee List Ready")
     console.log(id);
     this.companyService.getCompanyEmployee(id).subscribe((data)=>{
       console.log(data);

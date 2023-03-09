@@ -31,4 +31,9 @@ export class EmployeelistService {
     return this.httpClient.post<Employeelist>("https://localhost:7129/api/Designation/AddEmployeeDesignation",assignDesignation)
 
   }
+
+  GetDesignationList(companyId:any):Observable<any>{
+    debugger
+    return this.httpClient.get<any>(`https://localhost:7129/api/Designation/${companyId}`)
+  }
 }

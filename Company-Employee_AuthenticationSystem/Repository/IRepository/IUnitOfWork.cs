@@ -8,5 +8,7 @@
 
         IDesignationRepository DesignationRepository { get; }
         IEmployeeDesignationRepository EmployeeDesignationRepository { get; }
+
+        ILeaveRepository LeaveRepository { get; }
     }
 }

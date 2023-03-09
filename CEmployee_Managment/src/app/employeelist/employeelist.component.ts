@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { EmployeelistService } from './../employeelist.service';
 import { Component, OnInit } from '@angular/core';
 import { Employeelist } from './../employeelist';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -14,13 +15,16 @@ EmployeeList:any []=[];
 newEmployee:Employeelist= new Employeelist();
 newDesignation:Employeelist=new Employeelist();
 assignDesignation:Employeelist=new Employeelist();
+DesignationList:any []=[];
 
 
 Role=["Company","Employee"];
 
 
 
+onclick(){
 
+}
 
  
   constructor(private employeelistService:EmployeelistService,private http: HttpClient){}
@@ -69,6 +73,19 @@ employeeDesignation(){
     }
   )
 }
+
+getDesignation(id:any) {
+  alert("Designation List ready")
+  console.log(id);
+  debugger
+  id = this.EmployeeList[0].companyId;
+  this.employeelistService.GetDesignationList(id).subscribe((data)=>{
+    this.DesignationList=data;
+    console.log(this.DesignationList)
+    },
+    (err)=>{
+     console.log(err);
+  })
   }
 
-
+}

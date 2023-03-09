@@ -16,7 +16,7 @@
                     <i class="fa fa-plus"></i>ASSIGN DESIGNATION</button>
                 </div>
                 <div class="col-3">
-                    <button class="btn btn-outline-primary m-2" data-toggle="modal"data-target="#designationassign">
+                    <button (click)="getDesignation(0)" class="btn btn-outline-primary m-2" data-toggle="modal"data-target="#designationassign">
                         <i class="fa fa-caret-square-o-down"></i>Designation List</button>
                     </div>
                
@@ -241,21 +241,42 @@
     </form>
 
 
-    <!--For Employee ASSIGNED DESIGNATION-->
+    <!--List For Employee ASSIGNED DESIGNATION-->
     <form>
         <div class="modal" id="designationassign" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="model-header">
-                        <div class="modal-title text-secondary text-center text-bold"><h6>DESIGNATION ASSIGNED</h6></div>
+                        <div class="modal-title text-success text-center text-bold"><h6>DESIGNATION ASSIGNED</h6></div>
                     </div>
                     <div class="modal-body" title="New DESIGNATION">
                         <div class="form-group row">
-                            <label for="txtempid" class="col-sm-4 text-info">sdfgf</label>
+                            
                             <div class="col-8">
+                         <table class="table table-info table-borderd  ">
+                            <thead>
+                                <tr>
+                                <td><h6>Emp Id</h6></td>
+                                <td><h6>Emp Name</h6></td>
+                                <td><h6>Designation</h6></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr  *ngFor=" let designation of DesignationList">
+                                <td>{{designation.employeeId}}</td>
+                                <td>{{designation.employeeName}}</td>
+                                <td>{{designation.designations.designationName}}</td>
+                            </tr>
+                            </tbody>
+
+                            
+                         </table>
                         
                             </div>
                         </div>
                         </div>
                 </div></div></div>
     </form>
+
+
+

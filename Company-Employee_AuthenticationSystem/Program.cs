@@ -34,6 +34,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 //Adding Services and Repoitory here 
 builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 //For Repository Adding IUnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
