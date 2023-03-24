@@ -10,7 +10,8 @@ import { MapType } from '@angular/compiler';
 })
 export class LoginService {
   currentUsername:any="";
-
+  Logout:boolean=false;
+Role:any;
   constructor(private httpClient:HttpClient,private router:Router) { }
   
   CheckUser(login:Login):Observable<any>{
@@ -18,6 +19,7 @@ export class LoginService {
       if(u){
         this.currentUsername=u.username;
         localStorage["currentUser"]=JSON.stringify(u);
+        this.Role=u.role;
       }
       else{
         return u;
@@ -27,8 +29,10 @@ export class LoginService {
   }
   LogOut()
   {
+  this.Logout=true;
+  this.Role= "";
     this.currentUsername="";
-    sessionStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUser");
     this.router.navigateByUrl("/login")
   }
 }

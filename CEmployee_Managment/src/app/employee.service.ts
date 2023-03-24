@@ -16,6 +16,7 @@ export class EmployeeService {
     ("https://localhost:7129/api/Employee")
   }
 
+
   saveEmployee(newEmployee:Employee):Observable<Employee>
   {debugger
     console.log(newEmployee)
@@ -28,5 +29,10 @@ updateEmployee(editEmployee:Employee):Observable<Employee>
 deleteEmployee(id:Number):Observable<any>
 {debugger;return this.httpclient.delete<Employee>
 ("https://localhost:7129/api/Employee/" + id);}
+
+submitLeave(saveLeave:Employee):Observable<Employee>{
+  debugger
+  return this.httpclient.post<Employee>("https://localhost:7129/api/Leave/GenerateLeave",saveLeave)
+}
 
 }

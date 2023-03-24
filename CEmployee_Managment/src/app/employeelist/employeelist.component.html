@@ -19,6 +19,11 @@
                     <button (click)="getDesignation(0)" class="btn btn-outline-primary m-2" data-toggle="modal"data-target="#designationassign">
                         <i class="fa fa-caret-square-o-down"></i>Designation List</button>
                     </div>
+
+                    <div class="col-3">
+                        <button (click)=" getAllLeave()"  class="btn btn-outline-primary m-2" data-toggle="modal" data-target="#leaveList">
+                            <i class="fa fa-caret-square-o-down"></i>Leave List</button>
+                        </div>
                
         </div>
 
@@ -53,6 +58,7 @@
                     <button  class="btn btn-danger p-1 m-1">
                         <i class="fa fa-trash"></i>
                     </button>
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#leaveStatus">LeaveStatus</button>
                    
                 </td>
             </tr>
@@ -280,3 +286,134 @@
 
 
 
+ <!--SubmitLeave-->
+ <form>
+    <div class="modal" id="submitLeave" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="model-header">
+                    <div class="modal-title text-secondary text-center text-bold"><h3>SubmitLeave</h3></div>
+                </div>
+
+                <div class="modal-body" title="LeaveStatus">
+                    <div class="form-group row">
+                        <label for="txtempid" class="col-sm-4 text-info">EMPLOYEE ID</label>
+                        <div class="col-8">
+                            <input type="text" name="employeeId" [(ngModel)]="saveLeave.employeeId" placeholder="Enter valid Id" id="txtempid" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="startDate" class="col-sm-4 text-info">StartDate</label>
+                        <div class="col-8">
+                            <input type="date" name="startDate"  [(ngModel)]="saveLeave.startDate" id="startDate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="EndDate" class="col-sm-4 text-info">EndDate</label>
+                        <div class="col-8">
+                            <input type="date" name="endDate" [(ngModel)]="saveLeave.endDate"  id="endDate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Reason" class="col-sm-4 text-info">Reason</label>
+                        <div class="col-8">
+                            <input type="text" name="reason" [(ngModel)]="saveLeave.reason" placeholder="Reason for leave" id="Reason" class="form-control">
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="modal-footer margin-auto">
+                    <div class="auto-max">
+                    <button (click)="submitEmployeeLeave()" class="btn btn-success" data-dismiss="modal">
+                        save
+                    </button>
+                    <button class="btn btn-danger"data-dismiss="modal">
+                        cancel
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<!--Leave Status-->
+<form>
+    <div class="modal" id="leaveStatus" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="model-header">
+                    <div class="modal-title text-success text-center text-bold"><h6>LeaveStatus</h6></div>
+                </div>
+                <div class="modal-body" title="New DESIGNATION">
+                    <div class="form-group row">
+                        
+                        <div class="col-8">
+                     <table class="table table-info table-borderd  ">
+                        <thead>
+                            <tr>
+                            <td><h6>StartDate</h6></td>
+                            <td><h6>EndDate</h6></td>
+                            <td><h6>Status</h6></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor=" let designation of DesignationList">
+                            <td>{{designation.employeeId}}</td>
+                            <td>{{designation.employeeName}}</td>
+                            <td>{{designation.designations.designationName}}</td>
+                        </tr>
+                        </tbody>
+
+                        
+                     </table>
+                    
+                        </div>
+                    </div>
+                    </div>
+            </div></div></div>
+</form>
+
+
+<!--Leave List-->
+<form>
+    <div class="modal" id="leaveList" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="model-header">
+                    <div class="modal-title text-success text-center text-bold"><h6>DESIGNATION ASSIGNED</h6></div>
+                </div>
+                <div class="modal-body" title="New DESIGNATION">
+                    <div class="form-group row">
+                        
+                        <div class="col-8">
+                     <table class="table table-info table-borderd  ">
+                        <thead>
+                            <tr>
+                                <td><h6>EmployeeID</h6></td>
+                            <td><h6>StartDate</h6></td>
+                            <td><h6>EndDate</h6></td>
+                            <td><h6>reason</h6></td>
+                            <td><h6>Status</h6></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor=" let leave of LeaveList">
+                            <td>{{leave.employeeId}}</td>
+                            <td>{{leave.startDate}}</td>
+                            <td>{{leave.endDate}}</td>
+                            <td>{{leave.reason}}</td>
+                            <td>{{leave.status}}</td>
+                        </tr>
+                        </tbody>
+
+                        
+                     </table>
+                    
+                        </div>
+                    </div>
+                    </div>
+            </div></div></div>
+</form>

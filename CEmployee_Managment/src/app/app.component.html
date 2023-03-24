@@ -7,21 +7,21 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a routerLink="home" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a routerLink="home" class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a routerLink="about" class="nav-link" href="#"></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="loginService.Role==''|| loginService.Role=='Admin' || loginService.Role=='Company'">
         <a routerLink="company" class="nav-link"  href="#">Company</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item " *ngIf="loginService.Role=='Employee'">
         <a routerLink="employee" class="nav-link"  href="#">Employee</a>
       </li>
     </ul>
     <div class="d-flex " style="width: 12%;">
-      <button *ngIf="loginService.currentUsername!=''" (click)="LogoutClick()" class="btn btn-outline-success my-2 my-sm-0">Logout</button>
-      <a routerLink="login" class="btn btn-outline-success me-3" *ngIf="loginService.currentUsername ==''">Login</a>
+      <button *ngIf="loginService.Logout == false && !logoutuser" (click)="LogoutClick()" class="btn btn-outline-success my-2 my-sm-0">Logout</button>
+      <a routerLink="login" *ngIf="loginService.Logout == true || logoutuser" class="btn btn-outline-success me-3">Login</a>
 
       
   </div>

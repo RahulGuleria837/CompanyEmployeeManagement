@@ -18,6 +18,13 @@ export class Employeelist {
     DesignationId:any;
     DesignationName:any;
    
+
+    leaveId:any;
+    startDate:any;
+    endDate:any;
+    reason:any;
+    
+
      
     constructor()
     {
@@ -39,6 +46,10 @@ export class Employeelist {
         this.employeeId=null;
         this.designationId=null;
         this.designationName=null;
+        this.leaveId=null;
+        this.startDate=null;
+        this.endDate=null;
+        this.reason=null;
     }
 
     }

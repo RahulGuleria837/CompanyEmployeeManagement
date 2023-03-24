@@ -4,13 +4,15 @@ using Company_Employee_AuthenticationSystem.Models;
 using Company_Employee_AuthenticationSystem.Repository;
 using Company_Employee_AuthenticationSystem.Repository.IRepository;
 using Company_Employee_AuthenticationSystem.Services.IServiceContract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Company_Employee_AuthenticationSystem.Controllers
 {
-
+   
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : Controller
@@ -34,6 +36,8 @@ namespace Company_Employee_AuthenticationSystem.Controllers
 
         }
 
+
+        // To Get All Employees 
         [HttpGet]
         public  IActionResult  GetEmployee()
         {
@@ -41,28 +45,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             if(listOfEmployee == null ) return NotFound(new {message="Employee not Found"});
             return Ok(listOfEmployee);
         }
-        /*
-                [HttpPost]
-                public IActionResult SaveEmployees([FromBody]EmployeeDTO employeeDTO)
-                {
-
-                    if (!(employeeDTO != null) && ModelState.IsValid)
-                    {
-                        return Ok(new { message = "There is An Error" });
-                        //return BadRequest(ModelState);
-                    }
-
-                    var employeeData = _mapper.Map<Employee>(employeeDTO);
-
-                    _unitOfWork.EmployeeRepository.Add(employeeData);
-
-                    return Ok(new {Message="New Employee Added"});
-                }*/
-
-
-        //this method will add Employees and from here we can know that which employee belongs to which company
-        //here i have add a check that if user is entering a random company id so first it will find in the database
-        //that the companyId entered by user is exist or not
+        
 
         [HttpPost]
         public async Task<IActionResult> AddEmployee(EmployeeDTO employeeDTO)
@@ -85,11 +68,14 @@ namespace Company_Employee_AuthenticationSystem.Controllers
                 }
             }
 
-            //**
+            // Map the employee DTO to an employee entity
             var employee = _mapper.Map<Employee>(employeeDTO);
 
+            // Check if the user already exists
             var userExists = await _userService.IsUnique(employeeDTO.UserName);
             if (userExists == null) return BadRequest(userExists);
+
+            // Create a new ApplicationUser for the user
             var user = new ApplicationUser
             {
                 UserName = employeeDTO.UserName,
@@ -100,8 +86,10 @@ namespace Company_Employee_AuthenticationSystem.Controllers
 
 
 
-
+            // Register the user with the UserService
             var result = await _userService.RegisterUser(user);
+
+            // Add the employee entity to the database and save changes
             employee.ApplicationUserId = user.Id;
             _unitOfWork.EmployeeRepository.Add(employee);
             if (!result) return StatusCode(StatusCodes.Status500InternalServerError);
@@ -143,6 +131,55 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new {Message="Employee has been deleted"});
         }
 
+
+
+        /*      [HttpPost]
+              public IActionResult SaveEmployees([FromBody]EmployeeDTO employeeDTO)
+              {
+
+                  if (!(employeeDTO != null) && ModelState.IsValid)
+                  {
+                      return Ok(new { message = "There is An Error" });
+                      //return BadRequest(ModelState);
+                  }
+
+                  var employeeData = _mapper.Map<Employee>(employeeDTO);
+
+                  _unitOfWork.EmployeeRepository.Add(employeeData);
+
+                  return Ok(new {Message="New Employee Added"});
+              }
+*/
+
+        //this method will add Employees and from here we can know that which employee belongs to which company
+        //here i have add a check that if user is entering a random company id so first it will find in the database
+        //that the companyId entered by user is exist or not
+
+/*
+        [HttpGet]
+        public async Task<IActionResult> getall()
+        {
+            ClaimsIdentity? claimIdentity = User?.Identity as ClaimsIdentity;
+            if (claimIdentity == null) { return BadRequest(); }
+            var claim = claimIdentity.FindFirst(ClaimTypes.Name);
+            if (claim == null) { return BadRequest(); }
+            var getUserDetailed = await _userService.CheckUserInDb(claim.Value);
+            if (getUserDetailed == null) { return BadRequest(); }
+
+            if (getUserDetailed.Role == "Admin")
+            {
+                var emp =  _unitOfWork.EmployeeRepository.GetAll();
+                if (emp == null) return BadRequest("No Employee Found");
+                return Ok(emp);
+            }
+            var specificEmp = new List<Employee>();
+            var findEmp = _applicationDbContext.Employees.FirstOrDefault(u => u.ApplicationUserId == getUserDetailed.Id);
+            if (findEmp == null) return BadRequest("No Employee Found");
+            specificEmp.Add(findEmp);
+            return Ok(specificEmp);
+        }*/
+
+      
 
     }
 }

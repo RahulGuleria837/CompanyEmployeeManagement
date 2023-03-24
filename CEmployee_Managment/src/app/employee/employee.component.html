@@ -37,7 +37,9 @@
                     <button (click)="deleteClick($event,i)"  class="btn btn-danger p-1 m-1">
                         <i class="fa fa-trash"></i>
                     </button>
+                    <button data-toggle="modal" data-target="#submitLeave" class="btn btn-success">SubmitLeave</button>
                 </td>
+                
             </tr>
                 
             
@@ -191,3 +193,53 @@
     </form>
 
     
+ <!--SubmitLeave-->
+ <form>
+    <div class="modal" id="submitLeave" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="model-header">
+                    <div class="modal-title text-secondary text-center text-bold"><h3>SubmitLeave</h3></div>
+                </div>
+
+                <div class="modal-body" title="LeaveStatus">
+                    <div class="form-group row">
+                        <label for="txtempid" class="col-sm-4 text-info">EMPLOYEE ID</label>
+                        <div class="col-8">
+                            <input type="text" name="employeeId" [(ngModel)]="saveLeave.employeeId" placeholder="Enter valid Id" id="txtempid" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="startDate" class="col-sm-4 text-info">StartDate</label>
+                        <div class="col-8">
+                            <input type="date" name="startDate"  [(ngModel)]="saveLeave.startDate" id="startDate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="EndDate" class="col-sm-4 text-info">EndDate</label>
+                        <div class="col-8">
+                            <input type="date" name="endDate" [(ngModel)]="saveLeave.endDate"  id="endDate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Reason" class="col-sm-4 text-info">Reason</label>
+                        <div class="col-8">
+                            <input type="text" name="reason" [(ngModel)]="saveLeave.reason" placeholder="Reason for leave" id="Reason" class="form-control">
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="modal-footer margin-auto">
+                    <div class="auto-max">
+                    <button (click)="submitEmployeeLeave()" class="btn btn-success" data-dismiss="modal">
+                        save
+                    </button>
+                    <button class="btn btn-danger"data-dismiss="modal">
+                        cancel
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

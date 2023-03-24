@@ -1,8 +1,11 @@
+import { Company } from './../company';
 import { Router } from '@angular/router';
 import { LoginService } from './../login.service';
 import { Login } from './../login';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+import {  NavigationEnd } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -13,6 +16,8 @@ export class LoginComponent {
   LoginForm = new FormGroup({
     userName : new FormControl('',[Validators.required,Validators.minLength(3)]),
     password : new FormControl('',[Validators.required])
+
+    
   });
 
   LoginUser()
@@ -37,7 +42,29 @@ export class LoginComponent {
     LoginClick(){
       this.loginService.CheckUser(this.login).subscribe(
         (response)=>{
-          this.router.navigateByUrl("/company");
+          this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+              window.location.reload();
+            }
+          });
+
+          var currentUser = JSON.parse(localStorage.getItem("currentUser")??"");
+          console.log(currentUser.token)
+          if(currentUser.accessToken== undefined){
+            alert("wrong User Name or Password")
+            return;
+          }
+          if(currentUser!=""){
+      if(currentUser.role=="Admin"||currentUser.role=="Company" ){
+        this.router.navigateByUrl("/company");
+      }
+      if(currentUser.role=="Employee"){
+        this.router.navigateByUrl("/employee");
+      }
+      
+          }
+          
+        
         },
         (error)=>{
           console.log(error);

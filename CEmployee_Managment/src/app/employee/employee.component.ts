@@ -11,7 +11,7 @@ export class EmployeeComponent {
   employeeList:any[]=[];
   newEmployee:Employee= new Employee();
   editEmployee:Employee= new Employee();
-
+  saveLeave:Employee=new Employee();
 
 
   constructor(private employeeService:EmployeeService){}
@@ -95,4 +95,12 @@ this.employeeService.deleteEmployee(id).subscribe(
 )
 }
 
+submitEmployeeLeave(){
+  debugger
+  this.saveLeave.leaveId=0;
+  debugger
+this.employeeService.submitLeave(this.saveLeave).subscribe(
+  (response)=>alert("Data submitted")
+)
+}
 }

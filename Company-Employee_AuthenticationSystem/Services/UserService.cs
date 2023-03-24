@@ -114,6 +114,15 @@ namespace Company_Employee_AuthenticationSystem.Services
             if (user == null) return false;
             return true;
         }
+
+        public async Task<ApplicationUser?> CheckUserInDb(string userName)
+        {
+            var UserInDb = await _userManager.FindByIdAsync(userName);
+            if (UserInDb == null) return null;
+            var userGetRole = await _userManager.GetRolesAsync(UserInDb);
+            UserInDb.Role = userGetRole?.FirstOrDefault();
+            return UserInDb;
+        }
         #endregion
     }
 }

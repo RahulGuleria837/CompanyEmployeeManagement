@@ -12,12 +12,12 @@ import { HttpClient} from '@angular/common/http';
 })
 export class EmployeelistComponent implements OnInit {
 EmployeeList:any []=[];
+LeaveList:any[]=[];
+saveLeave:Employeelist= new Employeelist();
 newEmployee:Employeelist= new Employeelist();
 newDesignation:Employeelist=new Employeelist();
 assignDesignation:Employeelist=new Employeelist();
 DesignationList:any []=[];
-
-
 Role=["Company","Employee"];
 
 
@@ -86,6 +86,26 @@ getDesignation(id:any) {
     (err)=>{
      console.log(err);
   })
+  }
+
+  submitEmployeeLeave(){
+    debugger
+    this.saveLeave.leaveId=0;
+    debugger
+  this.employeelistService.submitLeave(this.saveLeave).subscribe(
+    (response)=>alert("Data submitted")
+  )
+  }
+  getAllLeave(){
+
+    this.employeelistService.getLeaveList().subscribe(
+      (response)=>{this.LeaveList= response ;
+      console.log(response)
+      },
+      (error)=>{
+        console.log(error)
+      }
+    )
   }
 
 }

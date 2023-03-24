@@ -2,6 +2,7 @@
 using Company_Employee_AuthenticationSystem.DTO;
 using Company_Employee_AuthenticationSystem.Models;
 using Company_Employee_AuthenticationSystem.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Company_Employee_AuthenticationSystem.Controllers
 {
+    //[Authorize(Roles = StandardDictionary.Role_Admin)] 
     [Route("api/Company")]
     [ApiController]
 
@@ -30,7 +32,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
         }
 
         [HttpGet]
-
+        //To get the company List
         public IActionResult GetCompany()
         {
             var companyList = _unitOfWork.CompanyRepository.GetAll();
@@ -39,7 +41,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(companyList);
         }
         [HttpPost]
-
+        // To Create New Company
         public IActionResult SaveCompany([FromBody] CompanyDTO companyDTO)
         {
             if (companyDTO == null && (!ModelState.IsValid)) return BadRequest();
@@ -48,7 +50,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new { Message = "New Employee Added to Table" });
         }
         [HttpPut]
-
+        // To update Present in Company
         public IActionResult UpdateCompany([FromBody] CompanyDTO companyDTO)
         {
             if (companyDTO == null) return BadRequest();
@@ -57,7 +59,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new { Message = "Employee Details Updated" });
 
         }
-
+        // To Delete company
         [HttpDelete("{id:int}")]
         public IActionResult DeleteCompany(int id)
         {
@@ -65,7 +67,7 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new { Message = "Employee has been Deleted" });
 
         }
-        //TO GET ALL COMPANY EMPLOYEES (in )
+        //TO GET ALL COMPANY EMPLOYEES PRESENT IN A COMPANY
         [HttpGet]
         [Route("EmployeesInTheCompany")]
         public IActionResult EmployeesInTheCompany(int companyId)
@@ -75,31 +77,5 @@ namespace Company_Employee_AuthenticationSystem.Controllers
             return Ok(new { employeeInDb, message = "Employee List Sucessfully" });
         }
 
-
-        /*[HttpGet]
-
-        [Route("GetAssignDesignation")]
-        public IActionResult GetAssignDesgination(int companyId)
-        {
-             var employees = _context.Employees
-                .Where(e => e.CompanyId == companyId)
-                .Include(e => e.EmployeeDesignation)
-                .ThenInclude(ed => ed.Designation)
-                .Where(e => e.EmployeeDesignation.any())
-                .Select(e => new
-                {
-                    EmployeeId = e.EmployeeId,
-                    EmployeeName = e.EmployeeName,
-                    Designations = e.EmployeeDesignations.Select(ed => ed.Designation.Name)
-                })
-                .ToList();
-
-            if (employees.Count == 0)
-            {
-                return NotFound(new { message = "No employee registered in the company" });
-            }
-
-            return Ok(employees);
-        }*/
     }
 }

@@ -13,6 +13,7 @@ namespace Company_Employee_AuthenticationSystem.DTO.DTOMapping
             CreateMap<EmployeeDTO, Employee>().ReverseMap();
             CreateMap<DesignationDTO, Designation>().ReverseMap();
             CreateMap<EmployeeDesignationDTO, EmployeeDesignation>().ReverseMap();
+            CreateMap<LeaveDTO, Leave>().ReverseMap();
 
 
         }

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.Internal;
 using Company_Employee_AuthenticationSystem.DTO;
+using Company_Employee_AuthenticationSystem.Models;
 using Company_Employee_AuthenticationSystem.Services.IServiceContract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Security.Claims;
 
 namespace Company_Employee_AuthenticationSystem.LoginViewModel
 {
@@ -19,14 +21,17 @@ namespace Company_Employee_AuthenticationSystem.LoginViewModel
             private readonly UserManager<ApplicationUser> _userManager;
             private readonly SignInManager<ApplicationUser> _signInManager;
             private readonly IUserService _userService;
+            private readonly IJWTService _jwtservice;
             private readonly IMapper _mapper;
 
-            public UserAuthentication(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IUserService userService, IMapper mapper)
+            public UserAuthentication(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IUserService userService, IMapper mapper,IJWTService jwtService )
             {
                 _userManager = userManager;
                 _signInManager = signInManager;
                 _userService = userService;
                 _mapper = mapper;
+                _jwtservice = jwtService;
+              
             }
 
             [HttpPost]
@@ -39,7 +44,7 @@ namespace Company_Employee_AuthenticationSystem.LoginViewModel
 
                 var authenticataeUser = await _userService.AuthenicateUser(login.UserName, login.Password);
                 if (authenticataeUser == null) { return Unauthorized(); }
-                return Ok(new { AccessToken = authenticataeUser.Token, authenticataeUser.RefreshToken });
+                return Ok(new { AccessToken = authenticataeUser.Token, authenticataeUser.RefreshToken,Role=authenticataeUser.Role });
             }
 
             [Route("Register")]
@@ -60,7 +65,55 @@ namespace Company_Employee_AuthenticationSystem.LoginViewModel
 
 
             }
+
+
+            [Route("RefreshToken")]
+            [HttpPost]
+            public async Task<IActionResult> RefreshToken(Tokens userToken)
+            {
+                Request.Headers.TryGetValue("IS-TOKEN-EXPIRED", out var headerValue);
+                if (userToken == null || !ModelState.IsValid || headerValue.FirstOrDefault() == "")
+                {
+                    return BadRequest();
+                }
+                var claimUserDataFromToken = _jwtservice.ExpiredTokenClaim(userToken.AccessToken);
+                if (claimUserDataFromToken == null)
+                {
+                    return Unauthorized(new { Message = "your token is valid sir use this token" });
+                }
+                var claimUserIdentity = (ClaimsIdentity)claimUserDataFromToken.Identity;
+                var claimUser = claimUserIdentity.FindFirst(ClaimTypes.Name);
+                if (claimUser == null)
+                {
+                    return Unauthorized();
+                }
+
+
+                var checkUserInDb = await _userManager.FindByIdAsync(claimUser.Value);
+                if (checkUserInDb == null) return Unauthorized();
+                var userGetRole = await _userManager.GetRolesAsync(checkUserInDb);
+                checkUserInDb.Role = userGetRole.FirstOrDefault();
+                if (checkUserInDb.RefreshToken != userToken.RefreshTokens)
+                {
+                    return Unauthorized(new { Message = "Go to login!!!!!!" });
+                }
+                var generateNewToken = _jwtservice.GetToken(checkUserInDb,false);
+                if (!await _userService.UpdateRefreshToken(generateNewToken))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+
+                Tokens usertoken = new Tokens()
+                {
+                    AccessToken = generateNewToken.Token,
+                    RefreshTokens = generateNewToken.RefreshToken,
+                };
+                return Ok(usertoken);
+            }
+
         }
+    
+
     }
 }
 

@@ -53,14 +53,14 @@ namespace Company_Employee_AuthenticationSystem.Services.IServiceContract
             }
 
         }
-        public ApplicationUser GetToken(ApplicationUser user, bool refreshToken)
+        public ApplicationUser GetToken(ApplicationUser? user, bool refreshToken)
         {
             return GenerateJWTToken(user, refreshToken);
         }
 
 
 
-        public ClaimsPrincipal? ExpiredTokenClaim(string token)
+        public ClaimsPrincipal? ExpiredTokenClaim(string? token)
         {
 
             var tokenHandler = new JwtSecurityTokenHandler();

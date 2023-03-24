@@ -13,5 +13,7 @@
         Task<ApplicationUser> GetRefreshToken(ApplicationUser applicationUser);
 
         Task<bool> UpdateRefreshToken(ApplicationUser applicationUser);
+
+        Task<ApplicationUser?> CheckUserInDb(string userName);
     }
 }

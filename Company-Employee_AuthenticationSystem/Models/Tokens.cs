@@ -2,7 +2,7 @@
 {
     public class Tokens
     {
-        public int AccessToken { get; set; }
+        public string? AccessToken { get; set; }
 
         public string? RefreshTokens { get; set; }
     }

@@ -36,4 +36,13 @@ export class EmployeelistService {
     debugger
     return this.httpClient.get<any>(`https://localhost:7129/api/Designation/${companyId}`)
   }
+
+  submitLeave(saveLeave:Employeelist):Observable<Employeelist>{
+    debugger
+    return this.httpClient.post<Employeelist>("https://localhost:7129/api/Leave/GenerateLeave",saveLeave)
+  }
+
+getLeaveList():Observable<any>{
+  return this.httpClient.get<any>("https://localhost:7129/api/Leave/LeaveStatus")
+}
 }
